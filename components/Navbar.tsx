@@ -117,22 +117,22 @@ export default function Navbar() {
     })),
     {
       label: "Today Deals",
-      href: "/coming-soon?feature=today-deals",
+      href: "/deals",
       type: "Feature",
     },
     {
       label: "Track Order",
-      href: "/coming-soon?feature=track-order",
+      href: "/orders",
       type: "Feature",
     },
     {
       label: "Gift Cards",
-      href: "/coming-soon?feature=gift-cards",
+      href: "/gift-cards",
       type: "Feature",
     },
     {
       label: "Support Center",
-      href: "/coming-soon?feature=support-center",
+      href: "/support",
       type: "Feature",
     },
   ];
@@ -175,7 +175,12 @@ export default function Navbar() {
     if (firstMatch) {
       router.push(firstMatch.href);
     } else {
-      router.push("/coming-soon?feature=search");
+      const normalized = searchQuery.trim();
+      if (normalized.length > 0) {
+        router.push(`/search?q=${encodeURIComponent(normalized)}`);
+      } else {
+        router.push("/search");
+      }
     }
     setIsSearchOpen(false);
   };
@@ -195,7 +200,7 @@ export default function Navbar() {
 
           {/* Location — desktop only */}
           <Link
-            href="/coming-soon?feature=delivery-location"
+            href="/delivery"
             className="hidden items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2.5 py-1.5 text-left text-[#11305f] lg:flex"
           >
             <LocationIcon />
@@ -212,7 +217,7 @@ export default function Navbar() {
           {/* Mobile/tablet: Location + Hello + Orders + Cart all in one row */}
           <div className="flex items-center gap-1.5 lg:hidden">
             <Link
-              href="/coming-soon?feature=delivery-location"
+              href="/delivery"
               className="flex h-11 shrink-0 items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2 py-1.5 text-left text-[#11305f]"
             >
               <LocationIcon />
@@ -226,13 +231,13 @@ export default function Navbar() {
               </span>
             </Link>
             <NavAction
-              href="/coming-soon?feature=account"
+              href="/account"
               top="Hello"
               bottom="Guest"
               className="shrink-0"
             />
             <NavAction
-              href="/coming-soon?feature=orders"
+              href="/orders"
               top="Returns &"
               bottom="Orders"
               className="shrink-0"
@@ -359,13 +364,9 @@ export default function Navbar() {
             )}
           </div>
 
+          <NavAction href="/account" top="Hello" bottom="Guest" />
           <NavAction
-            href="/coming-soon?feature=account"
-            top="Hello"
-            bottom="Guest"
-          />
-          <NavAction
-            href="/coming-soon?feature=orders"
+            href="/orders"
             top="Returns &"
             bottom="Orders"
             className="hidden md:block"

@@ -11,6 +11,7 @@ const heroSlides: HeroSlide[] = [
     description:
       "Discover curated drops with cleaner visuals, easier browsing, and a storefront designed for modern shoppers.",
     ctaText: "Shop new arrivals",
+    ctaHref: "/deals",
     background:
       "linear-gradient(120deg, #0a4fd1 0%, #1f6fff 48%, #6cb3ff 100%)",
   },
@@ -21,6 +22,7 @@ const heroSlides: HeroSlide[] = [
     description:
       "Browse top products with soft rounded surfaces, calm light tones, and reliable value across categories.",
     ctaText: "Explore essentials",
+    ctaHref: "/best-selling",
     background:
       "linear-gradient(120deg, #0d57df 0%, #3a80ff 40%, #9ec8ff 100%)",
   },
@@ -31,6 +33,7 @@ const heroSlides: HeroSlide[] = [
     description:
       "From tracking to returns, support actions are highlighted in blue so they are always easy to find.",
     ctaText: "Visit support center",
+    ctaHref: "/support",
     background:
       "linear-gradient(120deg, #0b49bd 0%, #1c63ea 52%, #78b3ff 100%)",
   },

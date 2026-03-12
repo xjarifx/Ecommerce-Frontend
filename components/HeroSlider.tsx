@@ -9,6 +9,7 @@ export type HeroSlide = {
   title: string;
   description: string;
   ctaText: string;
+  ctaHref?: string;
   background: string;
 };
 
@@ -100,7 +101,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   {slide.description}
                 </p>
                 <Link
-                  href={`/coming-soon?feature=${slide.id}`}
+                  href={slide.ctaHref ?? "/best-selling"}
                   className="mt-2 inline-flex w-fit items-center rounded-sm border border-white/60 bg-white px-6 py-3 text-sm font-semibold text-[#0d2b62] transition hover:bg-[#eaf2ff]"
                 >
                   {slide.ctaText}
