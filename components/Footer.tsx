@@ -46,7 +46,7 @@ function FooterColumnBlock({ column }: { column: FooterColumn }) {
         {column.links.map((link) => (
           <li key={link}>
             <Link
-              href="/"
+              href={`/coming-soon?feature=${encodeURIComponent(link.toLowerCase().replace(/\s+/g, "-"))}`}
               className="text-[0.95rem] text-[#4f638a] transition hover:text-[#1f6fff]"
             >
               {link}
@@ -82,12 +82,12 @@ export default function Footer() {
                 Need help with your order? Support actions are highlighted in
                 blue.
               </p>
-              <button
-                type="button"
+              <Link
+                href="/coming-soon?feature=contact-support"
                 className="rounded-sm border border-[#b8d2ff] bg-[#1f6fff] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#175de1]"
               >
                 Contact Support
-              </button>
+              </Link>
             </div>
           </div>
         </div>

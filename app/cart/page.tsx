@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "../../context/CartContext";
+import BestSelling from "../../components/BestSelling";
 
 export default function CartPage() {
   const { items, totalCount, totalPrice, increment, decrement } = useCart();
@@ -53,6 +54,8 @@ export default function CartPage() {
             Continue Shopping
           </Link>
         </div>
+
+        <BestSelling />
       </main>
     );
   }
@@ -202,6 +205,8 @@ export default function CartPage() {
           </aside>
         </div>
       </div>
+
+      <BestSelling />
     </main>
   );
 }

@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCart } from "../context/CartContext";
+import { categories, toCategorySlug } from "../data/catalog";
 
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
@@ -59,17 +61,19 @@ function SearchIcon() {
 }
 
 function NavAction({
+  href,
   top,
   bottom,
   className,
 }: {
+  href: string;
   top: string;
   bottom: string;
   className?: string;
 }) {
   return (
-    <button
-      type="button"
+    <Link
+      href={href}
       className={`group h-11 rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-left text-[#0f2247] transition hover:border-[#9fc2ff] hover:bg-[#eef5ff] ${className ?? ""}`}
     >
       <p className="whitespace-nowrap text-[0.68rem] leading-none text-[#5b6b8a]">
@@ -78,7 +82,7 @@ function NavAction({
       <p className="whitespace-nowrap text-[0.82rem] font-semibold leading-tight text-[#10203f] sm:text-sm">
         {bottom}
       </p>
-    </button>
+    </Link>
   );
 }
 
@@ -98,8 +102,50 @@ const languages = [
 export default function Navbar() {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("EN");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const { totalCount, openCart } = useCart();
+
+  const suggestionItems = [
+    ...categories.map((category) => ({
+      label: category.label,
+      href: `/category/${toCategorySlug(category.label)}`,
+      type: "Category",
+    })),
+    {
+      label: "Today Deals",
+      href: "/coming-soon?feature=today-deals",
+      type: "Feature",
+    },
+    {
+      label: "Track Order",
+      href: "/coming-soon?feature=track-order",
+      type: "Feature",
+    },
+    {
+      label: "Gift Cards",
+      href: "/coming-soon?feature=gift-cards",
+      type: "Feature",
+    },
+    {
+      label: "Support Center",
+      href: "/coming-soon?feature=support-center",
+      type: "Feature",
+    },
+  ];
+
+  const filteredSuggestions = suggestionItems
+    .filter((item) => {
+      const normalizedQuery = searchQuery.trim().toLowerCase();
+      if (!normalizedQuery) {
+        return true;
+      }
+      return item.label.toLowerCase().includes(normalizedQuery);
+    })
+    .slice(0, 7);
 
   useEffect(() => {
     if (!isLangOpen) return;
@@ -111,6 +157,28 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isLangOpen]);
+
+  useEffect(() => {
+    if (!isSearchOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isSearchOpen]);
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const firstMatch = filteredSuggestions[0];
+    if (firstMatch) {
+      router.push(firstMatch.href);
+    } else {
+      router.push("/coming-soon?feature=search");
+    }
+    setIsSearchOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#d5e4ff] bg-[#f8fbff] text-[#10203f]">
@@ -126,8 +194,8 @@ export default function Navbar() {
           </Link>
 
           {/* Location — desktop only */}
-          <button
-            type="button"
+          <Link
+            href="/coming-soon?feature=delivery-location"
             className="hidden items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2.5 py-1.5 text-left text-[#11305f] lg:flex"
           >
             <LocationIcon />
@@ -139,12 +207,12 @@ export default function Navbar() {
                 New York
               </span>
             </span>
-          </button>
+          </Link>
 
           {/* Mobile/tablet: Location + Hello + Orders + Cart all in one row */}
           <div className="flex items-center gap-1.5 lg:hidden">
-            <button
-              type="button"
+            <Link
+              href="/coming-soon?feature=delivery-location"
               className="flex h-11 shrink-0 items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2 py-1.5 text-left text-[#11305f]"
             >
               <LocationIcon />
@@ -156,9 +224,19 @@ export default function Navbar() {
                   New York
                 </span>
               </span>
-            </button>
-            <NavAction top="Hello" bottom="Guest" className="shrink-0" />
-            <NavAction top="Returns &" bottom="Orders" className="shrink-0" />
+            </Link>
+            <NavAction
+              href="/coming-soon?feature=account"
+              top="Hello"
+              bottom="Guest"
+              className="shrink-0"
+            />
+            <NavAction
+              href="/coming-soon?feature=orders"
+              top="Returns &"
+              bottom="Orders"
+              className="shrink-0"
+            />
             <button
               type="button"
               aria-label="Cart"
@@ -181,39 +259,71 @@ export default function Navbar() {
           </div>
         </div>
 
-        <form className="flex min-w-0 flex-1 overflow-hidden rounded-sm border border-[#b8d2ff] bg-white focus-within:border-[#1f6fff]">
-          <label htmlFor="search-department" className="sr-only">
-            Search department
-          </label>
-          <select
-            id="search-department"
-            className="w-14 shrink-0 border-r border-[#d5e4ff] bg-[#f3f8ff] px-1.5 text-xs text-[#3f5477] outline-none sm:w-20 sm:px-2"
-            defaultValue="all"
+        <div ref={searchRef} className="relative min-w-0 flex-1">
+          <form
+            onSubmit={handleSearchSubmit}
+            className="flex min-w-0 flex-1 overflow-hidden rounded-sm border border-[#b8d2ff] bg-white focus-within:border-[#1f6fff]"
           >
-            <option value="all">All</option>
-            <option value="deals">Deals</option>
-            <option value="fashion">Fashion</option>
-            <option value="electronics">Electronics</option>
-          </select>
+            <label htmlFor="search-department" className="sr-only">
+              Search department
+            </label>
+            <select
+              id="search-department"
+              className="w-14 shrink-0 border-r border-[#d5e4ff] bg-[#f3f8ff] px-1.5 text-xs text-[#3f5477] outline-none sm:w-20 sm:px-2"
+              defaultValue="all"
+            >
+              <option value="all">All</option>
+              <option value="deals">Deals</option>
+              <option value="fashion">Fashion</option>
+              <option value="electronics">Electronics</option>
+            </select>
 
-          <label htmlFor="search-input" className="sr-only">
-            Search products
-          </label>
-          <input
-            id="search-input"
-            type="search"
-            placeholder="Search products"
-            className="h-10 min-w-0 flex-1 bg-white px-2.5 text-[0.9rem] text-[#10203f] outline-none sm:h-11 sm:px-3 sm:text-[0.95rem]"
-          />
+            <label htmlFor="search-input" className="sr-only">
+              Search products
+            </label>
+            <input
+              id="search-input"
+              type="search"
+              value={searchQuery}
+              onFocus={() => setIsSearchOpen(true)}
+              onChange={(event) => {
+                setSearchQuery(event.target.value);
+                setIsSearchOpen(true);
+              }}
+              placeholder="Search products"
+              className="h-10 min-w-0 flex-1 bg-white px-2.5 text-[0.9rem] text-[#10203f] outline-none sm:h-11 sm:px-3 sm:text-[0.95rem]"
+            />
 
-          <button
-            type="submit"
-            className="grid h-10 w-11 shrink-0 place-items-center bg-[#1f6fff] text-white transition hover:bg-[#175de1] sm:h-11 sm:w-12"
-            aria-label="Search"
-          >
-            <SearchIcon />
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="grid h-10 w-11 shrink-0 place-items-center bg-[#1f6fff] text-white transition hover:bg-[#175de1] sm:h-11 sm:w-12"
+              aria-label="Search"
+            >
+              <SearchIcon />
+            </button>
+          </form>
+
+          {isSearchOpen && filteredSuggestions.length > 0 && (
+            <div className="absolute top-full z-50 mt-1 w-full rounded-sm border border-[#d5e4ff] bg-white py-1 shadow-lg">
+              {filteredSuggestions.map((suggestion) => (
+                <Link
+                  key={`${suggestion.type}-${suggestion.label}`}
+                  href={suggestion.href}
+                  onClick={() => {
+                    setSearchQuery(suggestion.label);
+                    setIsSearchOpen(false);
+                  }}
+                  className="flex items-center justify-between px-3 py-2 text-sm text-[#10203f] transition hover:bg-[#eef5ff]"
+                >
+                  <span>{suggestion.label}</span>
+                  <span className="text-xs font-semibold text-[#6d82a5]">
+                    {suggestion.type}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="hidden items-center gap-1 lg:flex lg:justify-end">
           <div ref={langRef} className="relative hidden lg:flex">
@@ -249,8 +359,13 @@ export default function Navbar() {
             )}
           </div>
 
-          <NavAction top="Hello" bottom="Guest" />
           <NavAction
+            href="/coming-soon?feature=account"
+            top="Hello"
+            bottom="Guest"
+          />
+          <NavAction
+            href="/coming-soon?feature=orders"
             top="Returns &"
             bottom="Orders"
             className="hidden md:block"

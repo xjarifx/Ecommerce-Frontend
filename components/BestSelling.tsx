@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
 type Product = {
@@ -120,7 +121,113 @@ const products: Product[] = [
       "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&h=500&fit=crop&auto=format",
     freeShipping: true,
   },
+  {
+    id: "p9",
+    name: "Samsung Galaxy S26 Ultra — 512 GB Phantom Black",
+    category: "Phones",
+    price: 1099,
+    originalPrice: 1249,
+    rating: 4.7,
+    reviewCount: 1984,
+    badge: "Top Rated",
+    photo:
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
+  {
+    id: "p10",
+    name: "Dell XPS 14 — Intel Core Ultra 7, 16GB RAM",
+    category: "Laptops",
+    price: 1499,
+    originalPrice: 1699,
+    rating: 4.6,
+    reviewCount: 962,
+    badge: "Best Seller",
+    photo:
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
+  {
+    id: "p11",
+    name: "Adidas Ultraboost Light Running Shoes",
+    category: "Shoes",
+    price: 149,
+    originalPrice: 189,
+    rating: 4.5,
+    reviewCount: 2486,
+    photo:
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500&h=500&fit=crop&auto=format",
+    freeShipping: false,
+  },
+  {
+    id: "p12",
+    name: "Dyson V15 Detect Cordless Vacuum Cleaner",
+    category: "Home & Living",
+    price: 599,
+    originalPrice: 699,
+    rating: 4.8,
+    reviewCount: 1331,
+    badge: "Hot Deal",
+    photo:
+      "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
+  {
+    id: "p13",
+    name: "Fujifilm X-S20 Mirrorless Camera Body",
+    category: "Cameras",
+    price: 1299,
+    originalPrice: 1449,
+    rating: 4.7,
+    reviewCount: 743,
+    photo:
+      "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
+  {
+    id: "p14",
+    name: "Bose QuietComfort Ultra Wireless Headphones",
+    category: "Headphones",
+    price: 379,
+    originalPrice: 449,
+    rating: 4.8,
+    reviewCount: 2754,
+    badge: "Top Rated",
+    photo:
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
+  {
+    id: "p15",
+    name: "Apple Watch Series 11 GPS + Cellular",
+    category: "Watches",
+    price: 499,
+    originalPrice: 549,
+    rating: 4.6,
+    reviewCount: 1820,
+    badge: "Editor's Pick",
+    photo:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
+  {
+    id: "p16",
+    name: "Logitech MX Master 4 Performance Mouse",
+    category: "Office",
+    price: 129,
+    originalPrice: 159,
+    rating: 4.5,
+    reviewCount: 3198,
+    photo:
+      "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop&auto=format",
+    freeShipping: true,
+  },
 ];
+
+type BestSellingProps = {
+  limit?: number;
+  showViewAll?: boolean;
+};
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -289,7 +396,12 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-export default function BestSelling() {
+export default function BestSelling({
+  limit = 8,
+  showViewAll = true,
+}: BestSellingProps) {
+  const visibleProducts = products.slice(0, limit);
+
   return (
     <section className="mt-10 w-full px-3 sm:px-4">
       <div className="mb-5 flex items-end justify-between">
@@ -301,16 +413,18 @@ export default function BestSelling() {
             Best Selling Products
           </h2>
         </div>
-        <button
-          type="button"
-          className="rounded-sm border border-[#d5e4ff] bg-white px-4 py-2 text-sm font-semibold text-[#1f6fff] transition hover:bg-[#eef5ff]"
-        >
-          View All →
-        </button>
+        {showViewAll && (
+          <Link
+            href="/best-selling"
+            className="rounded-sm border border-[#d5e4ff] bg-white px-4 py-2 text-sm font-semibold text-[#1f6fff] transition hover:bg-[#eef5ff]"
+          >
+            View All →
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products.map((product) => (
+        {visibleProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

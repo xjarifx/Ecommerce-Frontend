@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export type HeroSlide = {
   id: string;
@@ -98,12 +99,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 <p className="max-w-[48ch] text-base leading-relaxed text-white/90 sm:text-lg">
                   {slide.description}
                 </p>
-                <button
-                  type="button"
+                <Link
+                  href={`/coming-soon?feature=${slide.id}`}
                   className="mt-2 inline-flex w-fit items-center rounded-sm border border-white/60 bg-white px-6 py-3 text-sm font-semibold text-[#0d2b62] transition hover:bg-[#eaf2ff]"
                 >
                   {slide.ctaText}
-                </button>
+                </Link>
               </div>
             </article>
           ))}
