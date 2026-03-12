@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCart } from "../context/CartContext";
 
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
@@ -57,123 +58,6 @@ function SearchIcon() {
   );
 }
 
-function MenuIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
-      <path
-        d="M4 7H20"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M4 12H20"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M4 17H20"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-7 w-7"
-      aria-hidden="true"
-    >
-      <path
-        d="M6 6L18 18"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M18 6L6 18"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function RightChevronIcon() {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
-      <path
-        d="M7.2 4.5L12.8 10L7.2 15.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function DownChevronIcon() {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
-      <path
-        d="M5 7.5L10 12.5L15 7.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function UserCircleIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-7 w-7"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="12" cy="9" r="3" fill="currentColor" />
-      <path
-        d="M6.5 17.2C7.8 15 9.7 13.9 12 13.9C14.3 13.9 16.2 15 17.5 17.2"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function NavAction({
   top,
   bottom,
@@ -186,12 +70,12 @@ function NavAction({
   return (
     <button
       type="button"
-      className={`group rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-left text-[#0f2247] transition hover:border-[#9fc2ff] hover:bg-[#eef5ff] ${className ?? ""}`}
+      className={`group h-11 rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-left text-[#0f2247] transition hover:border-[#9fc2ff] hover:bg-[#eef5ff] ${className ?? ""}`}
     >
-      <p className="hidden text-[0.68rem] leading-none text-[#5b6b8a] sm:block">
+      <p className="whitespace-nowrap text-[0.68rem] leading-none text-[#5b6b8a]">
         {top}
       </p>
-      <p className="text-[0.82rem] font-semibold leading-tight text-[#10203f] sm:text-sm">
+      <p className="whitespace-nowrap text-[0.82rem] font-semibold leading-tight text-[#10203f] sm:text-sm">
         {bottom}
       </p>
     </button>
@@ -212,28 +96,10 @@ const languages = [
 ];
 
 export default function Navbar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("EN");
   const langRef = useRef<HTMLDivElement>(null);
-
-  const secondaryLinks = [
-    "Flash Deals",
-    "New In",
-    "Gift Cards",
-    "Support",
-    "Electronics",
-    "Home",
-  ];
-
-  const quickCollections = [
-    "Daily Essentials",
-    "Spring Fashion",
-    "Workspace Setup",
-    "Wellness Picks",
-  ];
-
-  const departmentItems = ["Fashion", "Beauty", "Home", "Technology", "Sports"];
+  const { totalCount, openCart } = useCart();
 
   useEffect(() => {
     if (!isLangOpen) return;
@@ -246,30 +112,10 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isLangOpen]);
 
-  useEffect(() => {
-    if (!isSidebarOpen) {
-      return;
-    }
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsSidebarOpen(false);
-      }
-    };
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [isSidebarOpen]);
-
   return (
-    <header className="w-full border-b border-[#d5e4ff] bg-[#f8fbff] text-[#10203f]">
-      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-2 px-3 py-2 sm:px-4 lg:flex-row lg:items-center lg:gap-3">
+    <header className="sticky top-0 z-40 w-full border-b border-[#d5e4ff] bg-[#f8fbff] text-[#10203f]">
+      <div className="flex w-full flex-col gap-2 px-3 py-2 sm:px-4 lg:flex-row lg:items-center lg:gap-3">
+        {/* Row 1: Logo, mobile actions, Cart — lg+ handled by right-side actions div */}
         <div className="flex w-full items-center justify-between gap-2 lg:w-auto lg:justify-start lg:gap-3">
           <Link
             href="/"
@@ -279,9 +125,10 @@ export default function Navbar() {
             <span className="text-[#6da7ff]">Cart</span>
           </Link>
 
+          {/* Location — desktop only */}
           <button
             type="button"
-            className="hidden items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2.5 py-1.5 text-left text-[#11305f] md:flex"
+            className="hidden items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2.5 py-1.5 text-left text-[#11305f] lg:flex"
           >
             <LocationIcon />
             <span>
@@ -294,22 +141,44 @@ export default function Navbar() {
             </span>
           </button>
 
-          <button
-            type="button"
-            aria-label="Cart"
-            className="flex items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-[#0f2349] sm:hidden"
-          >
-            <Image
-              src="/icons/cart.png"
-              alt=""
-              width={24}
-              height={24}
-              aria-hidden="true"
-            />
-            <span className="text-xs font-bold leading-none text-[#1f6fff]">
-              0
-            </span>
-          </button>
+          {/* Mobile/tablet: Location + Hello + Orders + Cart all in one row */}
+          <div className="flex items-center gap-1.5 lg:hidden">
+            <button
+              type="button"
+              className="flex h-11 shrink-0 items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2 py-1.5 text-left text-[#11305f]"
+            >
+              <LocationIcon />
+              <span>
+                <span className="block text-[0.68rem] leading-none text-[#5a6d90]">
+                  Deliver to
+                </span>
+                <span className="block text-sm font-semibold leading-tight">
+                  New York
+                </span>
+              </span>
+            </button>
+            <NavAction top="Hello" bottom="Guest" className="shrink-0" />
+            <NavAction top="Returns &" bottom="Orders" className="shrink-0" />
+            <button
+              type="button"
+              aria-label="Cart"
+              onClick={openCart}
+              className="flex h-11 shrink-0 items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-[#0f2349]"
+            >
+              <Image
+                src="/icons/cart.png"
+                alt=""
+                width={24}
+                height={24}
+                aria-hidden="true"
+              />
+              {totalCount > 0 && (
+                <span className="text-xs font-bold leading-none text-[#1f6fff]">
+                  {totalCount}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
         <form className="flex min-w-0 flex-1 overflow-hidden rounded-sm border border-[#b8d2ff] bg-white focus-within:border-[#1f6fff]">
@@ -346,7 +215,7 @@ export default function Navbar() {
           </button>
         </form>
 
-        <div className="hidden items-center gap-1 sm:flex lg:justify-end">
+        <div className="hidden items-center gap-1 lg:flex lg:justify-end">
           <div ref={langRef} className="relative hidden lg:flex">
             <button
               type="button"
@@ -390,7 +259,8 @@ export default function Navbar() {
           <button
             type="button"
             aria-label="Cart"
-            className="hidden items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2.5 py-1.5 text-[#0f2349] sm:flex"
+            onClick={openCart}
+            className="flex items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2.5 py-1.5 text-[#0f2349]"
           >
             <Image
               src="/icons/cart.png"
@@ -399,156 +269,12 @@ export default function Navbar() {
               height={28}
               aria-hidden="true"
             />
-            <span className="text-sm font-bold leading-none text-[#1f6fff]">
-              0
+            <span className="text-xl font-bold leading-none text-[#1f6fff]">
+              {totalCount}
             </span>
           </button>
         </div>
       </div>
-
-      <div className="border-t border-[#d5e4ff] bg-white">
-        <nav className="mx-auto flex w-full max-w-[1600px] items-center gap-1.5 overflow-x-auto px-3 py-1.5 sm:px-4">
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(true)}
-            className="inline-flex items-center gap-1 rounded-sm border border-[#d5e4ff] bg-[#f4f8ff] px-2.5 py-1 text-sm font-semibold whitespace-nowrap text-[#13305e]"
-          >
-            <MenuIcon />
-            Browse
-          </button>
-
-          {secondaryLinks.map((item) => (
-            <button
-              key={item}
-              type="button"
-              className={`rounded-sm border border-transparent px-2.5 py-1 text-sm font-medium whitespace-nowrap text-[#344f78] transition hover:border-[#d5e4ff] hover:bg-[#f4f8ff] ${item === "Support" ? "inline-flex" : "hidden sm:inline-flex"}`}
-            >
-              {item}
-            </button>
-          ))}
-        </nav>
-      </div>
-
-      {isSidebarOpen ? (
-        <div className="fixed inset-0 z-50">
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(false)}
-            className="absolute inset-0 bg-[#0a1730]/50"
-            aria-label="Close menu overlay"
-          />
-
-          <aside className="absolute top-0 left-0 h-full w-[365px] max-w-[92vw] border-r border-[#d5e4ff] bg-[#f8fbff] text-[#10203f]">
-            <div className="flex h-13 items-center gap-3 border-b border-[#d5e4ff] bg-white px-5 text-[#17376f]">
-              <UserCircleIcon />
-              <p className="text-[1.2rem] font-semibold leading-none">
-                Hello, welcome
-              </p>
-              <button
-                type="button"
-                onClick={() => setIsSidebarOpen(false)}
-                className="ml-auto text-[#21498b]"
-                aria-label="Close menu"
-              >
-                <CloseIcon />
-              </button>
-            </div>
-
-            <div className="h-[calc(100%-52px)] overflow-y-auto bg-[#f8fbff]">
-              <section className="border-b border-[#d5e4ff] px-6 py-5">
-                <h3 className="mb-3 text-2xl font-semibold leading-tight">
-                  Quick Collections
-                </h3>
-                <ul>
-                  {quickCollections.map((item) => (
-                    <li key={item}>
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-between rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
-                      >
-                        <span>{item}</span>
-                        <RightChevronIcon />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section className="border-b border-[#d5e4ff] px-6 py-5">
-                <h3 className="mb-3 text-2xl font-semibold leading-tight">
-                  Shop by Department
-                </h3>
-                <ul>
-                  {departmentItems.map((item) => (
-                    <li key={item}>
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-between rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
-                      >
-                        <span>{item}</span>
-                        <RightChevronIcon />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  className="mt-2 flex items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-3 py-1.5 text-sm font-medium text-[#1f6fff]"
-                >
-                  See all
-                  <DownChevronIcon />
-                </button>
-              </section>
-
-              <section className="px-6 py-5">
-                <h3 className="text-2xl font-semibold leading-tight">
-                  Help and Settings
-                </h3>
-
-                <ul className="mt-3">
-                  <li>
-                    <button
-                      type="button"
-                      className="rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
-                    >
-                      Your Account
-                    </button>
-                  </li>
-
-                  <li>
-                    <button
-                      type="button"
-                      className="flex items-center gap-2 rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
-                    >
-                      <span className="text-[1.1rem]">🌐</span>
-                      English
-                    </button>
-                  </li>
-
-                  <li>
-                    <button
-                      type="button"
-                      className="flex items-center gap-2 rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
-                    >
-                      <span className="text-[1.1rem]">🇧🇩</span>
-                      Bangladesh
-                    </button>
-                  </li>
-
-                  <li>
-                    <button
-                      type="button"
-                      className="rounded-sm px-3 py-2.5 text-left text-base text-[#1f6fff] transition hover:bg-[#edf4ff]"
-                    >
-                      Support Center
-                    </button>
-                  </li>
-                </ul>
-              </section>
-            </div>
-          </aside>
-        </div>
-      ) : null}
     </header>
   );
 }

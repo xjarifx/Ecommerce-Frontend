@@ -60,7 +60,7 @@ function FooterColumnBlock({ column }: { column: FooterColumn }) {
 
 export default function Footer() {
   return (
-    <footer className="mx-auto mt-8 w-full max-w-[1600px] px-3 sm:px-4">
+    <footer className="mt-8 w-full px-3 sm:px-4">
       <div className="rounded-sm border border-[#d5e4ff] bg-white">
         <a
           href="#top"

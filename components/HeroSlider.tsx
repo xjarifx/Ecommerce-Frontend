@@ -73,7 +73,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
   }
 
   return (
-    <section className="mx-auto mt-5 w-full max-w-[1600px] px-3 sm:px-4">
+    <section className="mt-5 w-full px-3 sm:px-4">
       <div className="relative overflow-hidden rounded-sm border border-[#c5dbff] bg-[#dceaff]">
         <div
           className="flex transition-transform duration-700 ease-out"

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import AppShell from "../components/AppShell";
+import { CartProvider } from "../context/CartContext";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -29,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${plusJakartaSans.variable} ${plusJakartaSans.className} antialiased`}
       >
-        {children}
+        <CartProvider>
+          <AppShell>{children}</AppShell>
+        </CartProvider>
       </body>
     </html>
   );
