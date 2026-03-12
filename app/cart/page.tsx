@@ -185,12 +185,12 @@ export default function CartPage() {
                 </span>
               </div>
 
-              <button
-                type="button"
-                className="w-full rounded-xl bg-[#1f6fff] py-3 text-sm font-semibold text-white transition hover:bg-[#1558e0]"
+              <Link
+                href="/payment"
+                className="block w-full rounded-xl bg-[#1f6fff] py-3 text-center text-sm font-semibold text-white transition hover:bg-[#1558e0]"
               >
                 Proceed to Checkout
-              </button>
+              </Link>
 
               <Link
                 href="/"

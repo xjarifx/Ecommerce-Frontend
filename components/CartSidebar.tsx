@@ -54,7 +54,7 @@ function CartItems() {
         <Link
           href="/cart"
           onClick={closeCart}
-          className="block w-full rounded-lg border border-[#c0c0c0] bg-white py-2 text-center text-sm font-semibold text-[#10203f] transition hover:bg-[#f5f5f5]"
+          className="block w-full rounded-sm border border-[#c0c0c0] bg-white py-2 text-center text-sm font-semibold text-[#10203f] transition hover:bg-[#f5f5f5]"
         >
           Go to Cart
         </Link>
@@ -67,7 +67,7 @@ function CartItems() {
           <ul className="flex flex-col gap-5">
             {items.map((item) => (
               <li key={item.id} className="flex flex-col items-center gap-2">
-                <div className="relative h-36 w-full overflow-hidden rounded-xl bg-[#f0f6ff]">
+                <div className="relative h-36 w-full overflow-hidden rounded-sm bg-[#f0f6ff]">
                   <Image
                     src={item.photo}
                     alt={item.name}
@@ -86,7 +86,7 @@ function CartItems() {
                     type="button"
                     onClick={() => decrement(item.id)}
                     aria-label="Remove one"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#f59e0b] text-[#f59e0b] transition hover:bg-[#fff8e7]"
+                    className="flex h-9 w-9 items-center justify-center rounded-sm border-2 border-[#f59e0b] text-[#f59e0b] transition hover:bg-[#fff8e7]"
                   >
                     {item.quantity === 1 ? (
                       <svg
@@ -136,7 +136,7 @@ function CartItems() {
                     type="button"
                     onClick={() => increment(item.id)}
                     aria-label="Add one"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#f59e0b] text-[#f59e0b] transition hover:bg-[#fff8e7]"
+                    className="flex h-9 w-9 items-center justify-center rounded-sm border-2 border-[#f59e0b] text-[#f59e0b] transition hover:bg-[#fff8e7]"
                   >
                     <span className="text-lg leading-none">+</span>
                   </button>
@@ -168,7 +168,7 @@ export default function CartSidebar() {
             <h2 className="text-lg font-bold text-[#10203f]">
               Your Cart
               {totalCount > 0 && (
-                <span className="ml-2 rounded-full bg-[#1f6fff] px-2 py-0.5 text-xs text-white">
+                <span className="ml-2 rounded-sm bg-[#1f6fff] px-2 py-0.5 text-xs text-white">
                   {totalCount}
                 </span>
               )}
@@ -192,7 +192,7 @@ export default function CartSidebar() {
               <h2 className="text-lg font-bold text-[#10203f]">
                 Your Cart
                 {totalCount > 0 && (
-                  <span className="ml-2 rounded-full bg-[#1f6fff] px-2 py-0.5 text-xs text-white">
+                  <span className="ml-2 rounded-sm bg-[#1f6fff] px-2 py-0.5 text-xs text-white">
                     {totalCount}
                   </span>
                 )}
@@ -201,7 +201,7 @@ export default function CartSidebar() {
                 type="button"
                 onClick={closeCart}
                 aria-label="Close"
-                className="rounded-full p-1 text-[#5a6d90] transition hover:bg-[#f0f6ff]"
+                className="rounded-sm p-1 text-[#5a6d90] transition hover:bg-[#f0f6ff]"
               >
                 <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
                   <path

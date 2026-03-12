@@ -64,7 +64,7 @@ export default function Footer() {
       <div className="rounded-sm border border-[#d5e4ff] bg-white">
         <a
           href="#top"
-          className="flex h-12 items-center justify-center rounded-t-sm border-b border-[#d5e4ff] bg-[#edf4ff] text-[0.92rem] font-semibold text-[#1f6fff] transition hover:bg-[#e2edff]"
+          className="flex h-12 items-center justify-center rounded-sm border-b border-[#d5e4ff] bg-[#edf4ff] text-[0.92rem] font-semibold text-[#1f6fff] transition hover:bg-[#e2edff]"
         >
           Back to top
         </a>

@@ -85,8 +85,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
               className="relative min-h-[360px] w-full min-w-full overflow-hidden md:min-h-[460px]"
               style={{ background: slide.background }}
             >
-              <div className="absolute top-[-90px] right-[-60px] h-56 w-56 rounded-full bg-white/20" />
-              <div className="absolute bottom-[-120px] left-[-90px] h-64 w-64 rounded-full bg-[#8eb9ff]/40" />
+              <div className="absolute top-[-90px] right-[-60px] h-56 w-56 rounded-sm bg-white/20" />
+              <div className="absolute bottom-[-120px] left-[-90px] h-64 w-64 rounded-sm bg-[#8eb9ff]/40" />
 
               <div className="relative z-10 flex h-full max-w-[760px] flex-col justify-center gap-4 px-6 py-10 sm:px-10 md:px-14">
                 <p className="text-sm font-semibold tracking-[0.2em] text-white/90 uppercase">

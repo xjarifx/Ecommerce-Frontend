@@ -202,10 +202,10 @@ function ProductCard({ product }: { product: Product }) {
     : 0;
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d5e4ff] bg-white shadow-sm transition hover:border-[#93b8ff] hover:shadow-lg">
+    <div className="group relative flex flex-col overflow-hidden rounded-sm border border-[#d5e4ff] bg-white shadow-sm transition hover:border-[#93b8ff] hover:shadow-lg">
       {/* Badge */}
       {product.badge && (
-        <span className="absolute top-3 left-3 z-10 rounded-full bg-[#1f6fff] px-2.5 py-0.5 text-[0.68rem] font-semibold text-white shadow">
+        <span className="absolute top-3 left-3 z-10 rounded-sm bg-[#1f6fff] px-2.5 py-0.5 text-[0.68rem] font-semibold text-white shadow">
           {product.badge}
         </span>
       )}
@@ -220,7 +220,7 @@ function ProductCard({ product }: { product: Product }) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
         {discount > 0 && (
-          <span className="absolute bottom-2 left-2 rounded bg-[#ef4444] px-1.5 py-0.5 text-[0.7rem] font-bold text-white">
+          <span className="absolute bottom-2 left-2 rounded-sm bg-[#ef4444] px-1.5 py-0.5 text-[0.7rem] font-bold text-white">
             -{discount}%
           </span>
         )}
@@ -275,7 +275,7 @@ function ProductCard({ product }: { product: Product }) {
               photo: product.photo,
             })
           }
-          className={`mt-1 flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition ${
+          className={`mt-1 flex w-full items-center justify-center gap-2 rounded-sm py-2.5 text-sm font-semibold transition ${
             inCart
               ? "bg-[#e8f5e9] text-[#16a34a] hover:bg-[#d4edda]"
               : "bg-[#1f6fff] text-white hover:bg-[#175de1]"
@@ -303,7 +303,7 @@ export default function BestSelling() {
         </div>
         <button
           type="button"
-          className="rounded-xl border border-[#d5e4ff] bg-white px-4 py-2 text-sm font-semibold text-[#1f6fff] transition hover:bg-[#eef5ff]"
+          className="rounded-sm border border-[#d5e4ff] bg-white px-4 py-2 text-sm font-semibold text-[#1f6fff] transition hover:bg-[#eef5ff]"
         >
           View All →
         </button>

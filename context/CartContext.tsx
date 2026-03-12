@@ -22,7 +22,8 @@ type CartAction =
   | { type: "ADD"; payload: Omit<CartItem, "quantity"> }
   | { type: "REMOVE"; id: string }
   | { type: "INCREMENT"; id: string }
-  | { type: "DECREMENT"; id: string };
+  | { type: "DECREMENT"; id: string }
+  | { type: "CLEAR" };
 
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
@@ -53,6 +54,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
           )
           .filter((i) => i.quantity > 0),
       };
+    case "CLEAR":
+      return { items: [] };
     default:
       return state;
   }
@@ -69,6 +72,7 @@ type CartContextValue = {
   removeItem: (id: string) => void;
   increment: (id: string) => void;
   decrement: (id: string) => void;
+  clearCart: () => void;
   hasItem: (id: string) => boolean;
 };
 
@@ -98,6 +102,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     (id: string) => dispatch({ type: "DECREMENT", id }),
     [],
   );
+  const clearCart = useCallback(() => dispatch({ type: "CLEAR" }), []);
   const hasItem = useCallback(
     (id: string) => state.items.some((i) => i.id === id),
     [state.items],
@@ -116,6 +121,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeItem,
         increment,
         decrement,
+        clearCart,
         hasItem,
       }}
     >
