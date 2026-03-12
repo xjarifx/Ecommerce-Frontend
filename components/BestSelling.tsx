@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { useCart } from "../context/CartContext";
 
 type Product = {
@@ -20,7 +19,7 @@ type Product = {
 const products: Product[] = [
   {
     id: "p1",
-    name: "Apple iPhone 15 Pro — 256 GB Natural Titanium",
+    name: "Apple iPhone 17 Pro — 256 GB Natural Titanium",
     category: "Phones",
     price: 999,
     originalPrice: 1199,
@@ -28,7 +27,7 @@ const products: Product[] = [
     reviewCount: 2341,
     badge: "Best Seller",
     photo:
-      "https://images.unsplash.com/photo-1695048133142-1a20484429be?w=500&h=500&fit=crop&auto=format",
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop&auto=format",
     freeShipping: true,
   },
   {
@@ -192,25 +191,9 @@ function CartIcon() {
   );
 }
 
-function WishlistIcon({ active }: { active: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-      <path
-        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-        fill={active ? "#ef4444" : "none"}
-        stroke={active ? "#ef4444" : "currentColor"}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function ProductCard({ product }: { product: Product }) {
   const { addItem, hasItem } = useCart();
   const inCart = hasItem(product.id);
-  const [wishlisted, setWishlisted] = useState(false);
 
   const discount = product.originalPrice
     ? Math.round(
@@ -220,20 +203,6 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d5e4ff] bg-white shadow-sm transition hover:border-[#93b8ff] hover:shadow-lg">
-      {/* Wishlist */}
-      <button
-        type="button"
-        onClick={() => setWishlisted((w) => !w)}
-        aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
-        className={`absolute top-3 right-3 z-10 rounded-full p-1.5 shadow transition ${
-          wishlisted
-            ? "bg-red-50 text-red-500"
-            : "bg-white/80 text-[#8fa8cc] hover:text-red-400"
-        }`}
-      >
-        <WishlistIcon active={wishlisted} />
-      </button>
-
       {/* Badge */}
       {product.badge && (
         <span className="absolute top-3 left-3 z-10 rounded-full bg-[#1f6fff] px-2.5 py-0.5 text-[0.68rem] font-semibold text-white shadow">
