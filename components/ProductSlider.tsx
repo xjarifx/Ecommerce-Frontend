@@ -59,15 +59,15 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
 
   return (
     <section className="mx-auto mt-4 w-full max-w-[1600px] px-3 sm:px-4">
-      <div className="relative bg-[#eaeded] p-5">
-        <h2 className="mb-4 text-[2.05rem] font-semibold leading-tight text-[#111]">
+      <div className="relative rounded-sm border border-[#d5e4ff] bg-white p-5">
+        <h2 className="mb-4 text-[1.85rem] font-semibold leading-tight text-[#10203f]">
           {title}
         </h2>
 
         <button
           type="button"
           onClick={() => handleSlide("left")}
-          className="absolute top-1/2 left-0 z-10 grid h-24 w-10 -translate-y-1/2 place-items-center border border-black/10 bg-white/95 text-[#7d7d7d] shadow-sm transition hover:bg-white"
+          className="absolute top-1/2 left-0 z-10 grid h-24 w-10 -translate-y-1/2 place-items-center rounded-r-sm border border-[#d5e4ff] bg-[#f4f8ff] text-[#315997] transition hover:bg-[#ebf3ff]"
           aria-label="Previous products"
         >
           <ArrowIcon direction="left" />
@@ -80,9 +80,12 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
           {products.map((product) => (
             <article
               key={product.id}
-              className="w-[240px] shrink-0 snap-start bg-white p-3"
+              className="w-[240px] shrink-0 snap-start rounded-sm border border-[#d5e4ff] bg-[#f9fbff] p-3"
             >
-              <div className="relative h-44 overflow-hidden">
+              <div
+                className="relative h-44 overflow-hidden rounded-sm border border-[#dbe8ff]"
+                style={{ background: product.background }}
+              >
                 <Image
                   src="/product-image/product.jpg"
                   alt={product.name}
@@ -91,7 +94,7 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
                   sizes="(min-width: 1024px) 15vw, 45vw"
                 />
               </div>
-              <p className="mt-2 text-sm font-medium text-[#111]">
+              <p className="mt-2 text-sm font-medium text-[#10203f]">
                 {product.name}
               </p>
             </article>
@@ -101,7 +104,7 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
         <button
           type="button"
           onClick={() => handleSlide("right")}
-          className="absolute top-1/2 right-0 z-10 grid h-24 w-10 -translate-y-1/2 place-items-center border border-black/10 bg-white/95 text-[#7d7d7d] shadow-sm transition hover:bg-white"
+          className="absolute top-1/2 right-0 z-10 grid h-24 w-10 -translate-y-1/2 place-items-center rounded-l-sm border border-[#d5e4ff] bg-[#f4f8ff] text-[#315997] transition hover:bg-[#ebf3ff]"
           aria-label="Next products"
         >
           <ArrowIcon direction="right" />

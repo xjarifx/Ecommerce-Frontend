@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+:root {
+  --page-bg: #f5f9ff;
+  --surface: #ffffff;
+  --surface-soft: #edf4ff;
+  --text-main: #10203f;
+  --text-muted: #506080;
+  --line: #d5e4ff;
+  --primary: #1f6fff;
+  --primary-soft: #dfeaff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text-main);
+  background:
+    radial-gradient(1000px 420px at 94% -8%, #cbe0ff 0%, transparent 64%),
+    radial-gradient(760px 360px at 4% -12%, #d9ecff 0%, transparent 60%),
+    linear-gradient(180deg, #f8fbff 0%, var(--page-bg) 100%);
+}
+
+::selection {
+  color: #0a1730;
+  background: #bad4ff;
+}
+
+.surface-card {
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: var(--surface);
+}
+
 .hover-scroll-x {
   scrollbar-gutter: stable;
   scrollbar-width: thin;

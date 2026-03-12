@@ -13,93 +13,92 @@ type ProductCardData = {
 
 const productCards: ProductCardData[] = [
   {
-    title: "Get your game on",
-    ctaText: "Shop gaming",
+    title: "Design your smart workspace",
+    ctaText: "Explore desk tech",
     featured: true,
     items: [
       {
-        title: "Gaming setup",
+        title: "Creative studio setup",
         emoji: "🖥️",
-        background:
-          "linear-gradient(135deg, #0f315d 0%, #a92f75 55%, #ec6f39 100%)",
+        background: "linear-gradient(135deg, #deebff 0%, #b9d2ff 100%)",
       },
     ],
   },
   {
-    title: "Shop for your home essentials",
-    ctaText: "Discover more in Home",
+    title: "Home essentials, refreshed",
+    ctaText: "See home collection",
     items: [
       {
-        title: "Cleaning Tools",
+        title: "Cleaning tools",
         emoji: "🧼",
-        background: "linear-gradient(135deg, #edf7f8 0%, #b6e4ee 100%)",
+        background: "linear-gradient(135deg, #e9f3ff 0%, #d4e6ff 100%)",
       },
       {
-        title: "Home Storage",
+        title: "Storage solutions",
         emoji: "🗄️",
-        background: "linear-gradient(135deg, #f6f1ea 0%, #d8d2ca 100%)",
+        background: "linear-gradient(135deg, #f3f8ff 0%, #dce8ff 100%)",
       },
       {
-        title: "Home Decor",
+        title: "Decor accents",
         emoji: "🪴",
-        background: "linear-gradient(135deg, #edf4ef 0%, #bfd9c7 100%)",
+        background: "linear-gradient(135deg, #eaf6ff 0%, #cfe6ff 100%)",
       },
       {
         title: "Bedding",
         emoji: "🛏️",
-        background: "linear-gradient(135deg, #f5f4f1 0%, #d8d0bf 100%)",
+        background: "linear-gradient(135deg, #f6faff 0%, #d7e4ff 100%)",
       },
     ],
   },
   {
-    title: "New home arrivals under $50",
-    ctaText: "Shop the latest from Home",
+    title: "New arrivals under $50",
+    ctaText: "Browse new picks",
     items: [
       {
-        title: "Kitchen & Dining",
+        title: "Kitchen and dining",
         emoji: "🍲",
-        background: "linear-gradient(135deg, #eef3f4 0%, #c5d5dc 100%)",
+        background: "linear-gradient(135deg, #edf5ff 0%, #cfdeff 100%)",
       },
       {
-        title: "Home Improvement",
+        title: "DIY upgrades",
         emoji: "🧰",
-        background: "linear-gradient(135deg, #fef2e9 0%, #f0ceb7 100%)",
+        background: "linear-gradient(135deg, #eff6ff 0%, #cedfff 100%)",
       },
       {
-        title: "Decor",
+        title: "Minimal decor",
         emoji: "🪞",
-        background: "linear-gradient(135deg, #fff4e9 0%, #f1d8bf 100%)",
+        background: "linear-gradient(135deg, #f7fbff 0%, #deebff 100%)",
       },
       {
-        title: "Bedding & Bath",
+        title: "Bath and comfort",
         emoji: "🛁",
-        background: "linear-gradient(135deg, #ebeffa 0%, #c4cee7 100%)",
+        background: "linear-gradient(135deg, #eaf3ff 0%, #cedfff 100%)",
       },
     ],
   },
   {
-    title: "Shop Fashion for less",
-    ctaText: "See all deals",
+    title: "Style under budget",
+    ctaText: "See fashion edits",
     items: [
       {
         title: "Jeans under $50",
         emoji: "👖",
-        background: "linear-gradient(135deg, #eaf1f4 0%, #bfcfda 100%)",
+        background: "linear-gradient(135deg, #edf6ff 0%, #cfdef7 100%)",
       },
       {
         title: "Tops under $25",
         emoji: "👕",
-        background: "linear-gradient(135deg, #edf4e9 0%, #c9ddc0 100%)",
+        background: "linear-gradient(135deg, #f2f8ff 0%, #d8e4ff 100%)",
       },
       {
         title: "Dresses under $30",
         emoji: "👗",
-        background: "linear-gradient(135deg, #fce8d8 0%, #e5c1a1 100%)",
+        background: "linear-gradient(135deg, #edf4ff 0%, #d2e2ff 100%)",
       },
       {
         title: "Shoes under $50",
         emoji: "👢",
-        background: "linear-gradient(135deg, #f8f0e7 0%, #dbc6af 100%)",
+        background: "linear-gradient(135deg, #f5f9ff 0%, #dbe7ff 100%)",
       },
     ],
   },
@@ -110,88 +109,88 @@ const sliderProducts: SliderProduct[] = [
     id: "tees-pack",
     name: "Classic black t-shirts",
     emoji: "👕",
-    background: "linear-gradient(135deg, #f5f5f5 0%, #d8d8d8 100%)",
+    background: "linear-gradient(135deg, #f5f9ff 0%, #dce8ff 100%)",
   },
   {
     id: "clog-black",
     name: "Comfort clogs - black",
     emoji: "🩴",
-    background: "linear-gradient(135deg, #e8eaed 0%, #c9ced4 100%)",
+    background: "linear-gradient(135deg, #edf5ff 0%, #d3e2ff 100%)",
   },
   {
     id: "clog-lavender",
     name: "Comfort clogs - lavender",
     emoji: "🩴",
-    background: "linear-gradient(135deg, #efeafd 0%, #c9bff2 100%)",
+    background: "linear-gradient(135deg, #f3f8ff 0%, #deebff 100%)",
   },
   {
     id: "oversized-tee",
     name: "Oversized casual tee",
     emoji: "👚",
-    background: "linear-gradient(135deg, #f6f7f8 0%, #dfe4e8 100%)",
+    background: "linear-gradient(135deg, #eff6ff 0%, #d7e5ff 100%)",
   },
   {
     id: "white-tee-pack",
     name: "White tees pack",
     emoji: "👕",
-    background: "linear-gradient(135deg, #ffffff 0%, #e8ebf1 100%)",
+    background: "linear-gradient(135deg, #f7fbff 0%, #e2ecff 100%)",
   },
   {
     id: "black-pocket-tee",
     name: "Pocket t-shirt",
     emoji: "👕",
-    background: "linear-gradient(135deg, #f2f2f2 0%, #d0d0d0 100%)",
+    background: "linear-gradient(135deg, #eef6ff 0%, #d5e4ff 100%)",
   },
   {
     id: "white-shirt",
     name: "Formal white shirt",
     emoji: "👔",
-    background: "linear-gradient(135deg, #fcfcfc 0%, #e6e9ed 100%)",
+    background: "linear-gradient(135deg, #f8fbff 0%, #e1ecff 100%)",
   },
   {
     id: "shoes",
     name: "Street sneakers",
     emoji: "👟",
-    background: "linear-gradient(135deg, #f4f6f8 0%, #d7dee7 100%)",
+    background: "linear-gradient(135deg, #eff5ff 0%, #d6e2ff 100%)",
   },
 ];
 
 const heroSlides: HeroSlide[] = [
   {
     id: "hero-spring-fashion",
-    eyebrow: "Fresh arrivals",
-    title: "Big spring style drop",
+    eyebrow: "New identity",
+    title: "Style that feels fresh and minimal",
     description:
-      "Discover bold looks for every day comfort and weekend plans, with new picks landing this week.",
-    ctaText: "Shop new fashion",
+      "Discover curated drops with cleaner visuals, easier browsing, and a storefront designed for modern shoppers.",
+    ctaText: "Shop new arrivals",
     background:
-      "linear-gradient(120deg, #0f4c81 0%, #2484a8 48%, #50b8a2 100%)",
+      "linear-gradient(120deg, #0a4fd1 0%, #1f6fff 48%, #6cb3ff 100%)",
   },
   {
     id: "hero-home-refresh",
-    eyebrow: "Home upgrades",
-    title: "Refresh your space for less",
+    eyebrow: "BlueCart picks",
+    title: "Everyday essentials, cleaner interface",
     description:
-      "From cozy corners to smart storage, find everything to transform your rooms without overspending.",
-    ctaText: "Explore home deals",
+      "Browse top products with soft rounded surfaces, calm light tones, and reliable value across categories.",
+    ctaText: "Explore essentials",
     background:
-      "linear-gradient(120deg, #2f2f7f 0%, #5954b8 40%, #f08f5f 100%)",
+      "linear-gradient(120deg, #0d57df 0%, #3a80ff 40%, #9ec8ff 100%)",
   },
   {
     id: "hero-tech-week",
-    eyebrow: "Limited offer",
-    title: "Tech week mega savings",
+    eyebrow: "Support in blue",
+    title: "Shopping help when you need it",
     description:
-      "Save on accessories, audio gear, and daily gadgets while these hot picks are still in stock.",
-    ctaText: "Grab tech deals",
+      "From tracking to returns, support actions are highlighted in blue so they are always easy to find.",
+    ctaText: "Visit support center",
     background:
-      "linear-gradient(120deg, #0f172a 0%, #1d4ed8 52%, #0ea5e9 100%)",
+      "linear-gradient(120deg, #0b49bd 0%, #1c63ea 52%, #78b3ff 100%)",
   },
 ];
 
 export default function Home() {
   return (
-    <main id="top" className="min-h-screen bg-[#d48ef4]">
+    <main id="top" className="min-h-screen pb-8">
       <Navbar />
 
       <HeroSlider slides={heroSlides} />
@@ -209,7 +208,7 @@ export default function Home() {
       </section>
 
       <ProductSlider
-        title="Best Sellers in Clothing, Shoes & Jewelry"
+        title="Trending Now in Fashion, Home and Lifestyle"
         products={sliderProducts}
       />
 

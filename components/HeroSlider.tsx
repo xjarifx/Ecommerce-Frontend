@@ -73,8 +73,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
   }
 
   return (
-    <section className="mx-auto mt-4 w-full max-w-[1600px] px-3 sm:px-4">
-      <div className="relative overflow-hidden rounded-sm border border-black/5 shadow-[0_14px_35px_rgba(0,0,0,0.18)]">
+    <section className="mx-auto mt-5 w-full max-w-[1600px] px-3 sm:px-4">
+      <div className="relative overflow-hidden rounded-sm border border-[#c5dbff] bg-[#dceaff]">
         <div
           className="flex transition-transform duration-700 ease-out"
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
@@ -85,8 +85,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
               className="relative min-h-[360px] w-full min-w-full overflow-hidden md:min-h-[460px]"
               style={{ background: slide.background }}
             >
-              <div className="absolute top-[-90px] right-[-60px] h-56 w-56 rounded-full bg-white/20 blur-[1px]" />
-              <div className="absolute bottom-[-120px] left-[-90px] h-64 w-64 rounded-full bg-black/10" />
+              <div className="absolute top-[-90px] right-[-60px] h-56 w-56 rounded-full bg-white/20" />
+              <div className="absolute bottom-[-120px] left-[-90px] h-64 w-64 rounded-full bg-[#8eb9ff]/40" />
 
               <div className="relative z-10 flex h-full max-w-[760px] flex-col justify-center gap-4 px-6 py-10 sm:px-10 md:px-14">
                 <p className="text-sm font-semibold tracking-[0.2em] text-white/90 uppercase">
@@ -100,7 +100,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 </p>
                 <button
                   type="button"
-                  className="mt-2 inline-flex w-fit items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#111] transition hover:bg-[#f0f0f0]"
+                  className="mt-2 inline-flex w-fit items-center rounded-sm border border-white/60 bg-white px-6 py-3 text-sm font-semibold text-[#0d2b62] transition hover:bg-[#eaf2ff]"
                 >
                   {slide.ctaText}
                 </button>
@@ -112,7 +112,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         <button
           type="button"
           onClick={goToPrevious}
-          className="absolute top-1/2 left-3 z-20 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/50 bg-black/25 text-white backdrop-blur-sm transition hover:bg-black/40 sm:grid"
+          className="absolute top-1/2 left-3 z-20 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-sm border border-white/70 bg-white/20 text-white transition hover:bg-white/30 sm:grid"
           aria-label="Show previous slide"
         >
           <ArrowIcon direction="left" />
@@ -121,22 +121,22 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         <button
           type="button"
           onClick={goToNext}
-          className="absolute top-1/2 right-3 z-20 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/50 bg-black/25 text-white backdrop-blur-sm transition hover:bg-black/40 sm:grid"
+          className="absolute top-1/2 right-3 z-20 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-sm border border-white/70 bg-white/20 text-white transition hover:bg-white/30 sm:grid"
           aria-label="Show next slide"
         >
           <ArrowIcon direction="right" />
         </button>
 
-        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-black/25 px-3 py-2 backdrop-blur-sm">
+        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-sm border border-white/60 bg-white/20 px-3 py-2">
           {slides.map((slide, index) => (
             <button
               key={slide.id}
               type="button"
               onClick={() => setActiveIndex(index)}
-              className={`h-2.5 rounded-full transition ${
+              className={`h-2.5 rounded-sm transition ${
                 activeIndex === index
                   ? "w-7 bg-white"
-                  : "w-2.5 bg-white/60 hover:bg-white/80"
+                  : "w-2.5 bg-white/65 hover:bg-white/85"
               }`}
               aria-label={`Go to slide ${index + 1}`}
               aria-current={activeIndex === index}

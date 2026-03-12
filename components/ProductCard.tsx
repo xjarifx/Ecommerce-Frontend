@@ -22,7 +22,10 @@ function ProductTile({
 }) {
   return (
     <div>
-      <div className={`relative overflow-hidden ${featured ? "h-76" : "h-28"}`}>
+      <div
+        className={`relative overflow-hidden rounded-sm border border-[#d5e4ff] ${featured ? "h-76" : "h-28"}`}
+        style={{ background: item.background }}
+      >
         <Image
           src="/product-image/product.jpg"
           alt={item.title}
@@ -35,7 +38,9 @@ function ProductTile({
           }
         />
       </div>
-      <p className={`mt-1 ${featured ? "text-lg font-medium" : "text-sm"}`}>
+      <p
+        className={`mt-2 text-[#11264f] ${featured ? "text-lg font-medium" : "text-sm"}`}
+      >
         {item.title}
       </p>
     </div>
@@ -49,8 +54,8 @@ export default function ProductCard({
   featured = false,
 }: ProductCardProps) {
   return (
-    <article className="h-full bg-[#eaeded] p-5">
-      <h2 className="mb-3 text-[2rem] font-semibold leading-tight text-[#111]">
+    <article className="h-full rounded-sm border border-[#d5e4ff] bg-white p-5">
+      <h2 className="mb-3 text-[1.6rem] font-semibold leading-tight text-[#10203f]">
         {title}
       </h2>
 
@@ -66,7 +71,7 @@ export default function ProductCard({
 
       <button
         type="button"
-        className="mt-4 text-[1.05rem] text-[#2162a1] hover:underline"
+        className="mt-4 rounded-sm border border-[#d1e1ff] bg-[#edf4ff] px-4 py-2 text-[0.95rem] font-medium text-[#1f6fff] transition hover:bg-[#e1edff]"
       >
         {ctaText}
       </button>

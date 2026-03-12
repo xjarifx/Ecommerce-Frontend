@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
@@ -52,28 +53,6 @@ function SearchIcon() {
         strokeWidth="2"
         strokeLinecap="round"
       />
-    </svg>
-  );
-}
-
-function CartIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-7 w-7"
-      aria-hidden="true"
-    >
-      <path
-        d="M2.5 4H5L6.7 13.2C6.9 14.1 7.7 14.8 8.7 14.8H18.2C19.1 14.8 19.8 14.2 20 13.4L21.3 7.8H6"
-        stroke="currentColor"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="9.5" cy="18.2" r="1.6" fill="currentColor" />
-      <circle cx="17.7" cy="18.2" r="1.6" fill="currentColor" />
     </svg>
   );
 }
@@ -134,7 +113,7 @@ function CloseIcon() {
   );
 }
 
-function RightChevronIcon({ muted = false }: { muted?: boolean }) {
+function RightChevronIcon() {
   return (
     <svg
       viewBox="0 0 20 20"
@@ -145,7 +124,7 @@ function RightChevronIcon({ muted = false }: { muted?: boolean }) {
     >
       <path
         d="M7.2 4.5L12.8 10L7.2 15.5"
-        stroke={muted ? "#879395" : "currentColor"}
+        stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -195,50 +174,77 @@ function UserCircleIcon() {
   );
 }
 
-function NavAction({ top, bottom }: { top: string; bottom: string }) {
+function NavAction({
+  top,
+  bottom,
+  className,
+}: {
+  top: string;
+  bottom: string;
+  className?: string;
+}) {
   return (
     <button
       type="button"
-      className="group rounded-sm border border-transparent px-2 py-1 text-left text-white hover:border-white/70"
+      className={`group rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-left text-[#0f2247] transition hover:border-[#9fc2ff] hover:bg-[#eef5ff] ${className ?? ""}`}
     >
-      <p className="text-xs leading-none text-[#d6e2ee]">{top}</p>
-      <p className="text-sm font-semibold leading-tight text-white">{bottom}</p>
+      <p className="hidden text-[0.68rem] leading-none text-[#5b6b8a] sm:block">
+        {top}
+      </p>
+      <p className="text-[0.82rem] font-semibold leading-tight text-[#10203f] sm:text-sm">
+        {bottom}
+      </p>
     </button>
   );
 }
 
+const languages = [
+  { code: "EN", label: "English" },
+  { code: "BN", label: "বাংলা" },
+  { code: "AR", label: "العربية" },
+  { code: "FR", label: "Français" },
+  { code: "ZH", label: "中文" },
+  { code: "ES", label: "Español" },
+  { code: "DE", label: "Deutsch" },
+  { code: "HI", label: "हिन्दी" },
+  { code: "JA", label: "日本語" },
+  { code: "PT", label: "Português" },
+];
+
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState("EN");
+  const langRef = useRef<HTMLDivElement>(null);
 
   const secondaryLinks = [
-    "Today's Deals",
+    "Flash Deals",
+    "New In",
     "Gift Cards",
-    "Registry",
-    "Sell",
-    "Prime Video",
-    "Customer Service",
-  ];
-
-  const digitalItems = [
-    "Prime Video",
-    "Amazon Music",
-    "Kindle E-readers & Books",
-    "Amazon Appstore",
-  ];
-
-  const departmentItems = [
+    "Support",
     "Electronics",
-    "Computers",
-    "Smart Home",
-    "Arts & Crafts",
+    "Home",
   ];
 
-  const programItems = [
-    "Gift Cards",
-    "Shop By Interest",
-    "Amazon Live",
-    "International Shopping",
+  const quickCollections = [
+    "Daily Essentials",
+    "Spring Fashion",
+    "Workspace Setup",
+    "Wellness Picks",
   ];
+
+  const departmentItems = ["Fashion", "Beauty", "Home", "Technology", "Sports"];
+
+  useEffect(() => {
+    if (!isLangOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setIsLangOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isLangOpen]);
 
   useEffect(() => {
     if (!isSidebarOpen) {
@@ -262,40 +268,57 @@ export default function Navbar() {
   }, [isSidebarOpen]);
 
   return (
-    <header className="w-full bg-[#131a22] text-white">
-      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-3 py-2 sm:px-4 lg:flex-row lg:items-center lg:gap-4">
-        <div className="flex items-center gap-2 lg:gap-3">
+    <header className="w-full border-b border-[#d5e4ff] bg-[#f8fbff] text-[#10203f]">
+      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-2 px-3 py-2 sm:px-4 lg:flex-row lg:items-center lg:gap-3">
+        <div className="flex w-full items-center justify-between gap-2 lg:w-auto lg:justify-start lg:gap-3">
           <Link
             href="/"
-            className="rounded-sm border border-transparent px-2 py-1 text-[2.05rem] font-bold leading-none tracking-tight hover:border-white/70"
+            className="rounded-sm border border-[#d5e4ff] bg-white px-2.5 py-1.5 text-[1.45rem] font-semibold leading-none tracking-tight text-[#0d57df] sm:text-[1.65rem]"
           >
-            local
-            <span className="ml-1 text-lg text-[#ff9900]">.in</span>
+            Blue
+            <span className="text-[#6da7ff]">Cart</span>
           </Link>
 
           <button
             type="button"
-            className="hidden items-end gap-1 rounded-sm border border-transparent px-2 py-1 text-left hover:border-white/70 sm:flex"
+            className="hidden items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-2.5 py-1.5 text-left text-[#11305f] md:flex"
           >
             <LocationIcon />
             <span>
-              <span className="block text-[0.68rem] leading-none text-[#d6e2ee]">
+              <span className="block text-[0.68rem] leading-none text-[#5a6d90]">
                 Deliver to
               </span>
               <span className="block text-sm font-semibold leading-tight">
-                Bangladesh
+                New York
               </span>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            aria-label="Cart"
+            className="flex items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2 py-1.5 text-[#0f2349] sm:hidden"
+          >
+            <Image
+              src="/icons/cart.png"
+              alt=""
+              width={24}
+              height={24}
+              aria-hidden="true"
+            />
+            <span className="text-xs font-bold leading-none text-[#1f6fff]">
+              0
             </span>
           </button>
         </div>
 
-        <form className="flex min-w-0 flex-1 overflow-hidden rounded-lg border-2 border-transparent focus-within:border-[#ff9900]">
+        <form className="flex min-w-0 flex-1 overflow-hidden rounded-sm border border-[#b8d2ff] bg-white focus-within:border-[#1f6fff]">
           <label htmlFor="search-department" className="sr-only">
             Search department
           </label>
           <select
             id="search-department"
-            className="w-16 shrink-0 border-r border-[#c8c8c8] bg-[#e6e6e6] px-2 text-xs text-[#404040] outline-none sm:w-20"
+            className="w-14 shrink-0 border-r border-[#d5e4ff] bg-[#f3f8ff] px-1.5 text-xs text-[#3f5477] outline-none sm:w-20 sm:px-2"
             defaultValue="all"
           >
             <option value="all">All</option>
@@ -310,61 +333,95 @@ export default function Navbar() {
           <input
             id="search-input"
             type="search"
-            placeholder="Search Amazon"
-            className="h-11 min-w-0 flex-1 bg-white px-3 text-[0.95rem] text-black outline-none"
+            placeholder="Search products"
+            className="h-10 min-w-0 flex-1 bg-white px-2.5 text-[0.9rem] text-[#10203f] outline-none sm:h-11 sm:px-3 sm:text-[0.95rem]"
           />
 
           <button
             type="submit"
-            className="grid h-11 w-12 shrink-0 place-items-center bg-[#febd69] text-[#1b1b1b] transition hover:bg-[#f3a847]"
+            className="grid h-10 w-11 shrink-0 place-items-center bg-[#1f6fff] text-white transition hover:bg-[#175de1] sm:h-11 sm:w-12"
             aria-label="Search"
           >
             <SearchIcon />
           </button>
         </form>
 
-        <div className="flex items-center justify-between gap-1 overflow-x-auto pb-1 lg:justify-end lg:overflow-visible lg:pb-0">
+        <div className="hidden items-center gap-1 sm:flex lg:justify-end">
+          <div ref={langRef} className="relative hidden lg:flex">
+            <button
+              type="button"
+              onClick={() => setIsLangOpen((o) => !o)}
+              className="flex items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2.5 py-2.5 text-sm font-semibold text-[#18376b] transition hover:border-[#9fc2ff] hover:bg-[#eef5ff]"
+            >
+              {selectedLang}
+              <ChevronDownIcon className="h-4 w-4 text-[#6d82a5]" />
+            </button>
+            {isLangOpen && (
+              <div className="absolute right-0 top-full z-50 mt-1 w-44 rounded-sm border border-[#d5e4ff] bg-white shadow-lg">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    type="button"
+                    onClick={() => {
+                      setSelectedLang(lang.code);
+                      setIsLangOpen(false);
+                    }}
+                    className={`flex w-full items-center gap-2.5 px-3 py-2 text-sm text-left transition hover:bg-[#eef5ff] ${
+                      selectedLang === lang.code
+                        ? "font-semibold text-[#1f6fff]"
+                        : "text-[#344f78]"
+                    }`}
+                  >
+                    <span className="w-7 font-semibold">{lang.code}</span>
+                    <span>{lang.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <NavAction top="Hello" bottom="Guest" />
+          <NavAction
+            top="Returns &"
+            bottom="Orders"
+            className="hidden md:block"
+          />
+
           <button
             type="button"
-            className="hidden items-center gap-1 rounded-sm border border-transparent px-2 py-1 text-sm font-semibold hover:border-white/70 sm:flex"
+            aria-label="Cart"
+            className="hidden items-center gap-1 rounded-sm border border-[#d6e5ff] bg-white px-2.5 py-1.5 text-[#0f2349] sm:flex"
           >
-            <span className="text-lg">🇺🇸</span>
-            EN
-            <ChevronDownIcon className="h-4 w-4 text-[#d6e2ee]" />
-          </button>
-
-          <NavAction top="Hello, sign in" bottom="Account & Lists" />
-          <NavAction top="Returns" bottom="& Orders" />
-
-          <button
-            type="button"
-            className="relative flex items-end gap-1 rounded-sm border border-transparent px-2 py-1 text-white hover:border-white/70"
-          >
-            <span className="absolute left-[22px] top-0 text-sm font-bold leading-none text-[#ff9900]">
+            <Image
+              src="/icons/cart.png"
+              alt=""
+              width={28}
+              height={28}
+              aria-hidden="true"
+            />
+            <span className="text-sm font-bold leading-none text-[#1f6fff]">
               0
             </span>
-            <CartIcon />
-            <span className="text-lg font-bold leading-none">Cart</span>
           </button>
         </div>
       </div>
 
-      <div className="border-t border-white/10 bg-[#232f3e]">
-        <nav className="mx-auto flex w-full max-w-[1600px] items-center gap-2 overflow-x-auto px-3 py-1.5 sm:px-4">
+      <div className="border-t border-[#d5e4ff] bg-white">
+        <nav className="mx-auto flex w-full max-w-[1600px] items-center gap-1.5 overflow-x-auto px-3 py-1.5 sm:px-4">
           <button
             type="button"
             onClick={() => setIsSidebarOpen(true)}
-            className="inline-flex items-center gap-1 rounded-sm border border-transparent px-2 py-1 text-sm font-bold whitespace-nowrap hover:border-white/70"
+            className="inline-flex items-center gap-1 rounded-sm border border-[#d5e4ff] bg-[#f4f8ff] px-2.5 py-1 text-sm font-semibold whitespace-nowrap text-[#13305e]"
           >
             <MenuIcon />
-            All
+            Browse
           </button>
 
           {secondaryLinks.map((item) => (
             <button
               key={item}
               type="button"
-              className="rounded-sm border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap hover:border-white/70"
+              className={`rounded-sm border border-transparent px-2.5 py-1 text-sm font-medium whitespace-nowrap text-[#344f78] transition hover:border-[#d5e4ff] hover:bg-[#f4f8ff] ${item === "Support" ? "inline-flex" : "hidden sm:inline-flex"}`}
             >
               {item}
             </button>
@@ -377,48 +434,48 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsSidebarOpen(false)}
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-[#0a1730]/50"
             aria-label="Close menu overlay"
           />
 
-          <aside className="absolute top-0 left-0 h-full w-[365px] max-w-[92vw] bg-[#f4f4f4] text-[#111] shadow-2xl">
-            <div className="flex h-13 items-center gap-3 bg-[#232f3e] px-5 text-white">
+          <aside className="absolute top-0 left-0 h-full w-[365px] max-w-[92vw] border-r border-[#d5e4ff] bg-[#f8fbff] text-[#10203f]">
+            <div className="flex h-13 items-center gap-3 border-b border-[#d5e4ff] bg-white px-5 text-[#17376f]">
               <UserCircleIcon />
-              <p className="text-[2rem] font-bold leading-none">
-                Hello, sign in
+              <p className="text-[1.2rem] font-semibold leading-none">
+                Hello, welcome
               </p>
               <button
                 type="button"
                 onClick={() => setIsSidebarOpen(false)}
-                className="ml-auto text-white"
+                className="ml-auto text-[#21498b]"
                 aria-label="Close menu"
               >
                 <CloseIcon />
               </button>
             </div>
 
-            <div className="h-[calc(100%-52px)] overflow-y-auto border-r border-[#d4d7d9] bg-[#f4f4f4]">
-              <section className="border-b border-[#d4d7d9] px-6 py-5">
-                <h3 className="mb-3 text-[2rem] font-bold leading-tight">
-                  Digital Content & Devices
+            <div className="h-[calc(100%-52px)] overflow-y-auto bg-[#f8fbff]">
+              <section className="border-b border-[#d5e4ff] px-6 py-5">
+                <h3 className="mb-3 text-2xl font-semibold leading-tight">
+                  Quick Collections
                 </h3>
                 <ul>
-                  {digitalItems.map((item, index) => (
+                  {quickCollections.map((item) => (
                     <li key={item}>
                       <button
                         type="button"
-                        className={`flex w-full items-center justify-between px-0 py-3 text-left text-[1.72rem] ${index === 3 ? "bg-[#e2e5e7] px-4 text-[1.68rem]" : ""}`}
+                        className="flex w-full items-center justify-between rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
                       >
                         <span>{item}</span>
-                        <RightChevronIcon muted={index !== 3} />
+                        <RightChevronIcon />
                       </button>
                     </li>
                   ))}
                 </ul>
               </section>
 
-              <section className="border-b border-[#d4d7d9] px-6 py-5">
-                <h3 className="mb-3 text-[2rem] font-bold leading-tight">
+              <section className="border-b border-[#d5e4ff] px-6 py-5">
+                <h3 className="mb-3 text-2xl font-semibold leading-tight">
                   Shop by Department
                 </h3>
                 <ul>
@@ -426,43 +483,17 @@ export default function Navbar() {
                     <li key={item}>
                       <button
                         type="button"
-                        className="flex w-full items-center justify-between py-3 text-left text-[1.72rem]"
+                        className="flex w-full items-center justify-between rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
                       >
                         <span>{item}</span>
-                        <RightChevronIcon muted />
+                        <RightChevronIcon />
                       </button>
                     </li>
                   ))}
                 </ul>
                 <button
                   type="button"
-                  className="mt-1 flex items-center gap-1 text-[1.72rem] text-[#222]"
-                >
-                  See all
-                  <DownChevronIcon />
-                </button>
-              </section>
-
-              <section className="border-b border-[#d4d7d9] px-6 py-5">
-                <h3 className="mb-3 text-[2rem] font-bold leading-tight">
-                  Programs & Features
-                </h3>
-                <ul>
-                  {programItems.map((item) => (
-                    <li key={item}>
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-between py-3 text-left text-[1.72rem]"
-                      >
-                        <span>{item}</span>
-                        <RightChevronIcon muted />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  className="mt-1 flex items-center gap-1 text-[1.72rem] text-[#222]"
+                  className="mt-2 flex items-center gap-1 rounded-sm border border-[#d5e4ff] bg-white px-3 py-1.5 text-sm font-medium text-[#1f6fff]"
                 >
                   See all
                   <DownChevronIcon />
@@ -470,15 +501,15 @@ export default function Navbar() {
               </section>
 
               <section className="px-6 py-5">
-                <h3 className="text-[2rem] font-bold leading-tight">
-                  Help & Settings
+                <h3 className="text-2xl font-semibold leading-tight">
+                  Help and Settings
                 </h3>
 
                 <ul className="mt-3">
                   <li>
                     <button
                       type="button"
-                      className="py-3 text-left text-[1.72rem] text-[#222]"
+                      className="rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
                     >
                       Your Account
                     </button>
@@ -487,9 +518,9 @@ export default function Navbar() {
                   <li>
                     <button
                       type="button"
-                      className="flex items-center gap-2 py-3 text-left text-[1.72rem] text-[#222]"
+                      className="flex items-center gap-2 rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
                     >
-                      <span className="text-[1.45rem] text-[#8a9499]">🌐</span>
+                      <span className="text-[1.1rem]">🌐</span>
                       English
                     </button>
                   </li>
@@ -497,28 +528,19 @@ export default function Navbar() {
                   <li>
                     <button
                       type="button"
-                      className="flex items-center gap-2 py-3 text-left text-[1.72rem] text-[#222]"
+                      className="flex items-center gap-2 rounded-sm px-3 py-2.5 text-left text-base text-[#1f3765] transition hover:bg-[#edf4ff]"
                     >
-                      <span className="text-[1.45rem]">🇺🇸</span>
-                      United States
+                      <span className="text-[1.1rem]">🇧🇩</span>
+                      Bangladesh
                     </button>
                   </li>
 
                   <li>
                     <button
                       type="button"
-                      className="py-3 text-left text-[1.72rem] text-[#222]"
+                      className="rounded-sm px-3 py-2.5 text-left text-base text-[#1f6fff] transition hover:bg-[#edf4ff]"
                     >
-                      Customer Service
-                    </button>
-                  </li>
-
-                  <li>
-                    <button
-                      type="button"
-                      className="py-3 text-left text-[1.72rem] text-[#222]"
-                    >
-                      Sign in
+                      Support Center
                     </button>
                   </li>
                 </ul>

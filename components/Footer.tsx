@@ -5,107 +5,41 @@ type FooterColumn = {
   links: string[];
 };
 
-type FooterMiniLink = {
-  title: string;
-  subtitle: string;
-};
-
 const topColumns: FooterColumn[] = [
   {
-    heading: "Get to Know Us",
+    heading: "Shop",
     links: [
-      "Careers",
-      "Blog",
-      "About Amazon",
-      "Investor Relations",
-      "Amazon Devices",
-      "Amazon Science",
+      "New Arrivals",
+      "Trending",
+      "Gift Cards",
+      "Clearance",
+      "Seasonal Picks",
     ],
   },
   {
-    heading: "Make Money with Us",
+    heading: "Company",
+    links: ["About BlueCart", "Careers", "Press", "Partners", "Affiliates"],
+  },
+  {
+    heading: "Support",
     links: [
-      "Sell products on Amazon",
-      "Sell on Amazon Business",
-      "Sell apps on Amazon",
-      "Become an Affiliate",
-      "Advertise Your Products",
-      "Self-Publish with Us",
-      "Host an Amazon Hub",
-      "> See More Make Money with Us",
+      "Help Center",
+      "Track Order",
+      "Returns",
+      "Shipping Policy",
+      "Contact Support",
     ],
   },
   {
-    heading: "Amazon Payment Products",
-    links: [
-      "Amazon Business Card",
-      "Shop with Points",
-      "Reload Your Balance",
-      "Amazon Currency Converter",
-    ],
+    heading: "Community",
+    links: ["Blog", "Style Guide", "Newsletters", "Events", "Reviews"],
   },
-  {
-    heading: "Let Us Help You",
-    links: [
-      "Amazon and COVID-19",
-      "Your Account",
-      "Your Orders",
-      "Shipping Rates & Policies",
-      "Returns & Replacements",
-      "Manage Your Content and Devices",
-      "Help",
-    ],
-  },
-];
-
-const miniLinks: FooterMiniLink[] = [
-  { title: "Amazon Music", subtitle: "Stream millions of songs" },
-  {
-    title: "Amazon Ads",
-    subtitle: "Reach customers wherever they spend their time",
-  },
-  { title: "6pm", subtitle: "Score deals on fashion brands" },
-  { title: "AbeBooks", subtitle: "Books, art & collectibles" },
-  { title: "ACX", subtitle: "Audiobook Publishing Made Easy" },
-  { title: "Sell on Amazon", subtitle: "Start a Selling Account" },
-  { title: "Veeqo", subtitle: "Shipping Software Inventory Management" },
-  { title: "Amazon Business", subtitle: "Everything For Your Business" },
-  { title: "AmazonGlobal", subtitle: "Ship Orders Internationally" },
-  {
-    title: "Amazon Web Services",
-    subtitle: "Scalable Cloud Computing Services",
-  },
-  {
-    title: "Audible",
-    subtitle: "Listen to Books & Original Audio Performances",
-  },
-  { title: "Box Office Mojo", subtitle: "Find Movie Box Office Data" },
-  { title: "Goodreads", subtitle: "Book reviews & recommendations" },
-  { title: "IMDb", subtitle: "Movies, TV & Celebrities" },
-  { title: "IMDbPro", subtitle: "Get Info Entertainment Professionals Need" },
-  {
-    title: "Kindle Direct Publishing",
-    subtitle: "Indie Digital & Print Publishing Made Easy",
-  },
-  { title: "Prime Video Direct", subtitle: "Video Distribution Made Easy" },
-  { title: "Shopbop", subtitle: "Designer Fashion Brands" },
-  { title: "Woot!", subtitle: "Deals and Shenanigans" },
-  { title: "Zappos", subtitle: "Shoes & Clothing" },
-  { title: "Ring", subtitle: "Smart Home Security Systems" },
-  { title: "eero WiFi", subtitle: "Stream 4K Video in Every Room" },
-  { title: "Blink", subtitle: "Smart Security for Every Home" },
-  { title: "Neighbors App", subtitle: "Real-Time Crime & Safety Alerts" },
-  {
-    title: "Amazon Subscription Boxes",
-    subtitle: "Top subscription boxes right to your door",
-  },
-  { title: "PillPack", subtitle: "Pharmacy Simplified" },
 ];
 
 function FooterColumnBlock({ column }: { column: FooterColumn }) {
   return (
     <div>
-      <h3 className="mb-2 text-[1.35rem] font-semibold text-white">
+      <h3 className="mb-2 text-[1.15rem] font-semibold text-[#10203f]">
         {column.heading}
       </h3>
       <ul className="space-y-1.5">
@@ -113,7 +47,7 @@ function FooterColumnBlock({ column }: { column: FooterColumn }) {
           <li key={link}>
             <Link
               href="/"
-              className="text-[0.96rem] text-[#dde6f2] hover:underline"
+              className="text-[0.95rem] text-[#4f638a] transition hover:text-[#1f6fff]"
             >
               {link}
             </Link>
@@ -126,89 +60,49 @@ function FooterColumnBlock({ column }: { column: FooterColumn }) {
 
 export default function Footer() {
   return (
-    <footer className="mt-8 bg-[#232f3e] text-white">
-      <a
-        href="#top"
-        className="flex h-11 items-center justify-center bg-[#37475a] text-[0.92rem] font-semibold hover:bg-[#41566f]"
-      >
-        Back to top
-      </a>
+    <footer className="mx-auto mt-8 w-full max-w-[1600px] px-3 sm:px-4">
+      <div className="rounded-sm border border-[#d5e4ff] bg-white">
+        <a
+          href="#top"
+          className="flex h-12 items-center justify-center rounded-t-sm border-b border-[#d5e4ff] bg-[#edf4ff] text-[0.92rem] font-semibold text-[#1f6fff] transition hover:bg-[#e2edff]"
+        >
+          Back to top
+        </a>
 
-      <div className="mx-auto max-w-[1600px] px-6 py-12 md:px-12">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {topColumns.map((column) => (
-            <FooterColumnBlock key={column.heading} column={column} />
-          ))}
-        </div>
-      </div>
-
-      <div className="border-t border-white/10 py-6">
-        <div className="mx-auto flex max-w-[1000px] flex-wrap items-center justify-center gap-3 px-6">
-          <Link
-            href="/"
-            className="mr-3 text-4xl font-bold leading-none tracking-tight text-white"
-          >
-            amazon
-            <span className="ml-1 text-xl text-[#ff9900]">.in</span>
-          </Link>
-
-          <button
-            type="button"
-            className="rounded border border-[#8d96a0] px-4 py-2 text-sm text-[#dbe4ef]"
-          >
-            🌐 English
-          </button>
-          <button
-            type="button"
-            className="rounded border border-[#8d96a0] px-4 py-2 text-sm text-[#dbe4ef]"
-          >
-            $ USD - U.S. Dollar
-          </button>
-          <button
-            type="button"
-            className="rounded border border-[#8d96a0] px-4 py-2 text-sm text-[#dbe4ef]"
-          >
-            🇺🇸 United States
-          </button>
-        </div>
-      </div>
-
-      <div className="bg-[#131a22] py-8">
-        <div className="mx-auto max-w-[1200px] px-6">
-          <div className="grid grid-cols-2 gap-x-7 gap-y-4 sm:grid-cols-3 lg:grid-cols-7">
-            {miniLinks.map((item) => (
-              <Link
-                key={item.title}
-                href="/"
-                className="block leading-tight text-[#d7dce2] hover:underline"
-              >
-                <p className="text-[0.8rem] font-semibold text-[#f1f3f5]">
-                  {item.title}
-                </p>
-                <p className="text-[0.8rem] text-[#a9b3bf]">{item.subtitle}</p>
-              </Link>
+        <div className="px-6 py-10 md:px-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {topColumns.map((column) => (
+              <FooterColumnBlock key={column.heading} column={column} />
             ))}
           </div>
 
-          <div className="mt-10 text-center text-xs text-[#d3d7de]">
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-              <Link href="/" className="hover:underline">
-                Conditions of Use
-              </Link>
-              <Link href="/" className="hover:underline">
-                Privacy Notice
-              </Link>
-              <Link href="/" className="hover:underline">
-                Consumer Health Data Privacy Disclosure
-              </Link>
-              <Link href="/" className="hover:underline">
-                Your Ads Privacy Choices
-              </Link>
+          <div className="mt-10 rounded-sm border border-[#d5e4ff] bg-[#f6f9ff] px-5 py-4">
+            <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center">
+              <p className="text-sm text-[#4f638a]">
+                Need help with your order? Support actions are highlighted in
+                blue.
+              </p>
+              <button
+                type="button"
+                className="rounded-sm border border-[#b8d2ff] bg-[#1f6fff] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#175de1]"
+              >
+                Contact Support
+              </button>
             </div>
-            <p className="mt-1">
-              © 1996-2026, Amazon.com, Inc. or its affiliates
-            </p>
           </div>
+        </div>
+
+        <div className="border-t border-[#d5e4ff] bg-[#f8fbff] px-6 py-6 text-center md:px-12">
+          <Link
+            href="/"
+            className="text-3xl font-semibold leading-none tracking-tight text-[#0d57df]"
+          >
+            Blue
+            <span className="text-[#6da7ff]">Cart</span>
+          </Link>
+          <p className="mt-3 text-xs text-[#607396]">
+            Copyright 2026 BlueCart. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

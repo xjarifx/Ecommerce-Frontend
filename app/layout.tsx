@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Food shop",
-  description: "A food shop built with Next.js and TypeScript",
+  title: "BlueCart | Modern Shopping Experience",
+  description: "A fresh, modern ecommerce storefront built with Next.js.",
 };
 
 export default function RootLayout({
@@ -20,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${inter.className} antialiased`}>
+      <body
+        className={`${outfit.variable} ${plusJakartaSans.variable} ${plusJakartaSans.className} antialiased`}
+      >
         {children}
       </body>
     </html>
